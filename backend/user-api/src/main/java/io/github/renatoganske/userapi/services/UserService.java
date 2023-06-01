@@ -1,6 +1,7 @@
 package io.github.renatoganske.userapi.services;
 
 import io.github.renatoganske.userapi.dtos.CreateAndUpdateUserDTO;
+import io.github.renatoganske.userapi.dtos.UserDTO;
 import io.github.renatoganske.userapi.entities.User;
 import io.github.renatoganske.userapi.repositories.UsersRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,9 @@ public class UserService {
         return repository.save(new User(createAndUpdateUserDTO));
     }
 
-    public List<User> findAll(){
-        return repository.findAll();
+    public List<User> listAllUsers(){
+        List<User> users = repository.findAll();
+        return users;
     }
+
 }

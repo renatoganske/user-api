@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -33,5 +34,11 @@ public class UsersController {
     public ResponseEntity<List<UserDTO>> getAll() {
         List<UserDTO> users = service.listAllUsers().stream().map(User::toUserDTO).toList();
         return ResponseEntity.status(HttpStatus.OK).body(users);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
+        User user = service.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(user.toUserDTO());
     }
 }

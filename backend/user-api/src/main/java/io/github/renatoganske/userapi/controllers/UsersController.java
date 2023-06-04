@@ -1,6 +1,7 @@
 package io.github.renatoganske.userapi.controllers;
 
 import io.github.renatoganske.userapi.dtos.CreateAndUpdateUserDTO;
+import io.github.renatoganske.userapi.dtos.ListUserDTO;
 import io.github.renatoganske.userapi.dtos.UserDTO;
 import io.github.renatoganske.userapi.entities.User;
 import io.github.renatoganske.userapi.services.UserService;
@@ -30,15 +31,15 @@ public class UsersController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDTO>> getAll() {
-        List<UserDTO> users = service.listAllUsers().stream().map(User::toUserDTO).toList();
+    public ResponseEntity<List<ListUserDTO>> getAll() {
+        List<ListUserDTO> users = service.listAllUsers();
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
-        User user = service.findById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(user.toUserDTO());
+        UserDTO dto = service.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
 
     @PutMapping("/{id}")

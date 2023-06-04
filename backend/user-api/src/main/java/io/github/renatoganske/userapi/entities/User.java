@@ -1,6 +1,7 @@
 package io.github.renatoganske.userapi.entities;
 
 import io.github.renatoganske.userapi.dtos.CreateAndUpdateUserDTO;
+import io.github.renatoganske.userapi.dtos.ListUserDTO;
 import io.github.renatoganske.userapi.dtos.UserDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -72,5 +73,12 @@ public class User {
                 this.birthDate,
                 this.status
         );
+    }
+
+    public ListUserDTO toListUserDTO() {
+        return new ListUserDTO(this.userId,
+                this.name,
+                this.lastname,
+                this.status);
     }
 }

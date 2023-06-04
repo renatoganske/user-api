@@ -1,6 +1,8 @@
 package io.github.renatoganske.userapi.services;
 
 import io.github.renatoganske.userapi.dtos.CreateAndUpdateUserDTO;
+import io.github.renatoganske.userapi.dtos.ListUserDTO;
+import io.github.renatoganske.userapi.dtos.UserDTO;
 import io.github.renatoganske.userapi.entities.User;
 import io.github.renatoganske.userapi.repositories.UsersRepository;
 import jakarta.transaction.Transactional;
@@ -26,14 +28,14 @@ public class UserService {
         return repository.save(new User(createAndUpdateUserDTO));
     }
 
-    public List<User> listAllUsers() {
-        List<User> users = repository.findAll();
-        return users;
+    public List<ListUserDTO> listAllUsers() {
+        return repository.findAll().stream().map(User::toListUserDTO).toList();
     }
 
-    public User findById(Long id) {
-        return repository.findById(id)
+    public UserDTO findById(Long id) {
+        User findById =  repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        return findById.toUserDTO();
     }
 
     public User updateUser(Long id, CreateAndUpdateUserDTO updateUserDTO) {

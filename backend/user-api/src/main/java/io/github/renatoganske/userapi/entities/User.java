@@ -52,6 +52,16 @@ public class User {
         this.status = createAndUpdateUserDTO.status();
     }
 
+    public void update(CreateAndUpdateUserDTO updateUserDTO) {
+        this.name = updateUserDTO.name();
+        this.lastname = updateUserDTO.lastname();
+        this.email = updateUserDTO.email();
+        this.phone = updateUserDTO.phone();
+        this.birthDate = updateUserDTO.birthDate();
+        this.password = updateUserDTO.password();
+        this.status = updateUserDTO.status();
+    }
+
     public UserDTO toUserDTO() {
         return new UserDTO(
                 this.userId,

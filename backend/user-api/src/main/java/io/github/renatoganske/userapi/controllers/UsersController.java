@@ -4,14 +4,12 @@ import io.github.renatoganske.userapi.dtos.CreateAndUpdateUserDTO;
 import io.github.renatoganske.userapi.dtos.UserDTO;
 import io.github.renatoganske.userapi.entities.User;
 import io.github.renatoganske.userapi.services.UserService;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -44,9 +42,15 @@ public class UsersController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id,
-                                              @Valid @RequestBody CreateAndUpdateUserDTO updateUserDTO) {
+    public ResponseEntity<UserDTO> update(@PathVariable Long id,
+                                          @Valid @RequestBody CreateAndUpdateUserDTO updateUserDTO) {
         User user = service.updateUser(id, updateUserDTO);
         return ResponseEntity.status(HttpStatus.OK).body(user.toUserDTO());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        service.delete(id);
+return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

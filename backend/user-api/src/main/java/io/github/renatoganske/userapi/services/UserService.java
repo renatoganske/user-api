@@ -42,5 +42,11 @@ public class UserService {
         user.update(updateUserDTO);
         return repository.save(user);
     }
+
+    public void delete(Long id) {
+        User user = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        repository.delete(user);
+    }
 }
 

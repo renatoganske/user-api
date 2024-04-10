@@ -1,16 +1,13 @@
 package io.github.renatoganske.userapi.entities;
 
 import io.github.renatoganske.userapi.dtos.CreateAndUpdateUserDTO;
+import io.github.renatoganske.userapi.dtos.ListUserDTO;
 import io.github.renatoganske.userapi.dtos.UserDTO;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
@@ -56,6 +53,16 @@ public class User {
         this.status = createAndUpdateUserDTO.status();
     }
 
+    public void update(CreateAndUpdateUserDTO updateUserDTO) {
+        this.name = updateUserDTO.name();
+        this.lastname = updateUserDTO.lastname();
+        this.email = updateUserDTO.email();
+        this.phone = updateUserDTO.phone();
+        this.birthDate = updateUserDTO.birthDate();
+        this.password = updateUserDTO.password();
+        this.status = updateUserDTO.status();
+    }
+
     public UserDTO toUserDTO() {
         return new UserDTO(
                 this.userId,
@@ -66,5 +73,12 @@ public class User {
                 this.birthDate,
                 this.status
         );
+    }
+
+    public ListUserDTO toListUserDTO() {
+        return new ListUserDTO(this.userId,
+                this.name,
+                this.lastname,
+                this.status);
     }
 }
